@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var axios = require('axios');
+var mongoose = require('mongoose');
 var credential = require('./credential.js');
 var config = require('./config');
 var spider = require('./spider');
@@ -17,6 +18,13 @@ var spider = require('./spider');
  */
 
 var app = express();
+
+mongoose.connect('mongodb://localhost:27017/daily-brief', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).catch(err => {
+  console.log('MongoDB connection error:', err.message);
+});
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'static')));
