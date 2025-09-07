@@ -1,18 +1,14 @@
-let mongoose = require('mongoose');
-let ZhihuStory = require('./models/ZhihuStory');
+var mongoose = require('mongoose');
 
-let db = mongoose.connect('mongodb://localhost/zhihu');
-
-// Since the default mongoose promise library is deprecated, change to use the
-// global promise object
-mongoose.Promise = global.Promise;
-
-db.connection.on('error', function (err) {
-    console.log('Cannot connect to database ${err}');
+var zhihuStorySchema = new mongoose.Schema({
+  link: String,
+  title: String,
+  imageSrc: String,
+  time: String
 });
 
-db.connection.on('open', function () {
-    console.log('Connected');
-});
+var ZhihuStory = mongoose.model('ZhihuStory', zhihuStorySchema);
 
-module.exports = { ZhihuStory: ZhihuStory };
+module.exports = {
+  ZhihuStory: ZhihuStory
+};
