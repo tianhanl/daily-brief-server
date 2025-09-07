@@ -4,7 +4,6 @@ var axios = require('axios');
 var mongoose = require('mongoose');
 var credential = require('./credential.js');
 var config = require('./config');
-var spider = require('./spider');
 /**
  * daily-brief-server
  * Sould provide the following pages:
@@ -12,8 +11,7 @@ var spider = require('./spider');
  * /app, return the daily brief application page
  * 
  * Should provide the following APIs:
- * /api/weather, return a JSON containing the weather info from 
- * /api/news/zhihu, return a JSON containing the top stories from Zhihu Daily
+ * /api/weather, return a JSON containing the weather info from
  * 
  */
 
@@ -56,15 +54,6 @@ app.get('/api/weather', function (req, res) {
   });
 });
 
-app.get('/api/news/zhihu', function (req, res) {
-  spider.requestStoryList()
-    .then(function (stories) {
-      res.json(stories);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-});
 // provide fallback for the routes
 app.use(function (req, res) {
   res.type('text/plain');
